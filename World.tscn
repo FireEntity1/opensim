@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddmv6cvhri7ao"]
+[gd_scene load_steps=8 format=3 uid="uid://ddmv6cvhri7ao"]
 
 [ext_resource type="PackedScene" uid="uid://bcwbokrsudnlx" path="res://World.glb" id="1_d0cua"]
 [ext_resource type="Script" path="res://PlaneController.gd" id="2_cidht"]
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="3_w6m62"]
 
 [sub_resource type="Environment" id="Environment_6cvhw"]
-background_energy_multiplier = 1.23
+background_energy_multiplier = 3.13
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_130f4"]
 size = Vector3(178.654, 1, 184.499)
@@ -29,17 +30,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04666, 0, -0.213805)
 shape = SubResource("BoxShape3D_130f4")
 
 [node name="PlaneBody" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.0027, -127.992)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.1778, 18.0027, -127.874)
 script = ExtResource("2_cidht")
 
 [node name="PlayerCam" type="Camera3D" parent="PlaneBody"]
-transform = Transform3D(-0.0766168, -0.276178, 0.958048, -0.00340774, 0.960939, 0.276739, -0.997055, 0.0179381, -0.0745652, 10.2666, -1.67104, -1.99127)
+transform = Transform3D(-0.0766168, -0.276178, 0.958048, -0.00340774, 0.960939, 0.276739, -0.997055, 0.0179381, -0.0745652, 10.2666, 3.04509, 3.25541)
 
 [node name="Control" type="Control" parent="PlaneBody/PlayerCam"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1162.0
 offset_bottom = 658.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="PlaneBody/PlayerCam/Control"]
 offset_left = 19.0
@@ -50,18 +52,23 @@ scale = Vector2(13.1667, 8.02459)
 value = 50.0
 fill_mode = 3
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="PlaneMesh" type="MeshInstance3D" parent="PlaneBody"]
-transform = Transform3D(3.10815, 0, 0, 0, 3.10815, 0, 0, 0, 3.10815, -1.39708, -5.07416, -3.31091)
+transform = Transform3D(3.10815, 0, 0, 0, 3.10815, 0, 0, 0, 3.10815, -1.39708, -0.358034, 1.93578)
 mesh = SubResource("BoxMesh_0gws7")
 
 [node name="PlaneCollision" type="CollisionShape3D" parent="PlaneBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31909, -5.07368, -3.32366)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31909, -0.357559, 1.92302)
 shape = SubResource("BoxShape3D_oivcw")
 
 [node name="Sun" type="SpotLight3D" parent="PlaneBody"]
-transform = Transform3D(1, 0, 0, 0, -0.892058, 0.451921, 0, -0.451921, -0.892058, 0, -1.31131, -14.2346)
+transform = Transform3D(1, 0, 0, 0, -0.892058, 0.451921, 0, -0.451921, -0.892058, 0, 3.40481, -8.9879)
 light_energy = 10.79
 light_indirect_energy = 7.158
 light_size = 15.9
 spot_range = 33.11
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="PlaneBody"]
+transform = Transform3D(3.10815, 0, 0, 0, 3.10815, 0, 0, 0, 3.10815, -1.39708, -0.358034, 1.93579)
+script = ExtResource("3_w6m62")
