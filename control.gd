@@ -1,6 +1,6 @@
 extends Control
 
-@export var RADIUS = 70
+@export var RADIUS = 100
 @export var DEAD_ZONE = 0.1
 var mouse_pos = Vector2()
 signal analog_input(analog:Vector2)
@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		
 	Input.warp_mouse(position+mouse_pos)
 	
-	var analog = Vector2(mouse_pos.x/RADIUS,-mouse_pos.y/RADIUS)
+	var analog = Vector2(mouse_pos.x/RADIUS,mouse_pos.y/RADIUS)
 	
 	if analog.length() > DEAD_ZONE:
 		analog_input.emit(analog)

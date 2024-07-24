@@ -5,10 +5,10 @@ extends CharacterBody3D
 @export var acceleration := 15.5
 @export var decceleration := 10.5
 @export var current_speed := 50.0
-var targetSpeed = 0
+var targetSpeed = 15
 
 @export var yaw_speed := 45.0 #degrees per second
-@export var pitch_speed := 25.0
+@export var pitch_speed := 15.0
 @export var roll_speed := 20.0
 
 # @onready var prop = $Plane2/Plane/propellor
@@ -22,16 +22,16 @@ func _ready() -> void:
 	roll_speed = deg_to_rad(roll_speed)
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("ElevatorUp"):
+	if Input.is_action_pressed("ThrottleDown"):
 		targetSpeed -= 0.3
-	elif Input.is_action_pressed("ElevatorDown"):
+	elif Input.is_action_pressed("ThrottleUp"):
 		targetSpeed += 0.3
 		
 	if current_speed <= targetSpeed:
 		current_speed += 0.2
 	elif current_speed >= targetSpeed:
 		current_speed -= 0.2
-	$PlayerCam/Control/ProgressBar.value = targetSpeed
+	$Rotation/PlayerCam/Control/ProgressBar.value = targetSpeed
 	
 	var input = Input.get_vector("left","right","down","up")
 	var roll = Input.get_axis("roll_left","roll_right")
@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 	apply_rotation(turn_dir,delta)
 	self.rotation.z = clamp(self.rotation.z, -30, 30)
 	turn_input = Vector2()
+	camera()
 	# spin_propellor(delta)
 
 
@@ -54,11 +55,11 @@ func apply_rotation(vector,delta):
 	rotate(basis.y,vector.y * yaw_speed * delta)
 	#lean mesh
 	if vector.y < 0:
-		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, deg_to_rad(-45)*-vector.y,delta)
+		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, deg_to_rad(-45)*-vector.y,delta/2)
 	elif vector.y > 0:
-		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, deg_to_rad(45)*vector.y,delta)
+		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, deg_to_rad(45)*vector.y,delta/2)
 	else:
-		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, 0,delta)
+		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, 0,delta/2)
 
 #func spin_propellor(delta):
 	#var m = current_speed/MAX_SPEED
@@ -66,8 +67,15 @@ func apply_rotation(vector,delta):
 	#if prop.rotation.z > TAU:
 		#prop.rotation.z = 0
 
-#func _on_mouse_analog_input_analog_input(analog: Vector2) -> void:
-	#pass
+func camera():
+	if Input.is_action_pressed("ui_left"):
+		$Rotation.rotation.y -= 0.06
+	if Input.is_action_pressed("ui_right"):
+		$Rotation.rotation.y += 0.06
+	if Input.is_action_pressed("ui_up"):
+		$Rotation.rotation.x -= 0.06
+	if Input.is_action_pressed("ui_down"):
+		$Rotation.rotation.x += 0.06
 
 func _on_control_analog_input(analog):
 	turn_input = analog

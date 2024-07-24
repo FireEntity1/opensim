@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq64kqi6jln7s"]
+
+[ext_resource type="PackedScene" uid="uid://bem7qyu3mc23b" path="res://Plane.glb" id="1_4ni2d"]
+
+[node name="Plane" instance=ExtResource("1_4ni2d")]
+
+[node name="Empty" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0301335, -0.849595, 0.701682)
+
+[node name="Cylinder" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1.1277, -0.00850829, 0.701682)
+
+[node name="Empty_001" parent="." index="2"]
+transform = Transform3D(-1.19209e-07, 1, 0, 1.19209e-07, 0, -1, -1, -1.19209e-07, -1.19209e-07, -1.94378, 1.24248, -0.739858)
+
+[node name="Circle" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0167633, -0.0184711, -1.27848)
