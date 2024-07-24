@@ -8,11 +8,11 @@ extends CharacterBody3D
 var targetSpeed = 0
 
 @export var yaw_speed := 45.0 #degrees per second
-@export var pitch_speed := 45.0
-@export var roll_speed := 45.0
+@export var pitch_speed := 25.0
+@export var roll_speed := 20.0
 
 # @onready var prop = $Plane2/Plane/propellor
-@onready var plane_mesh = $PlaneMesh
+@onready var plane_mesh = $Plane
 
 var turn_input =  Vector2()
 
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	var turn_dir = Vector3(-turn_input.y,-turn_input.x,-roll)
 	apply_rotation(turn_dir,delta)
-	self.rotation.z = clamp(self.rotation.z, -45, 45)
+	self.rotation.z = clamp(self.rotation.z, -30, 30)
 	turn_input = Vector2()
 	# spin_propellor(delta)
 
@@ -68,7 +68,6 @@ func apply_rotation(vector,delta):
 
 #func _on_mouse_analog_input_analog_input(analog: Vector2) -> void:
 	#pass
-
 
 func _on_control_analog_input(analog):
 	turn_input = analog

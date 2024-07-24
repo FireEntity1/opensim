@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bcwbokrsudnlx" path="res://World.glb" id="1_d0cua"]
 [ext_resource type="Script" path="res://plane.gd" id="2_3qumj"]
 [ext_resource type="Script" path="res://control.gd" id="3_geqqh"]
+[ext_resource type="PackedScene" uid="uid://bem7qyu3mc23b" path="res://Plane.glb" id="3_ghplv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_plhss"]
 sky_top_color = Color(0.786034, 0.457073, 0.344528, 1)
@@ -22,8 +23,6 @@ sky = SubResource("Sky_3fdgm")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_130f4"]
 size = Vector3(178.654, 1, 184.499)
-
-[sub_resource type="BoxMesh" id="BoxMesh_0gws7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oivcw"]
 size = Vector3(3.19336, 3.0874, 3.18506)
@@ -47,7 +46,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.17
 script = ExtResource("2_3qumj")
 
 [node name="PlayerCam" type="Camera3D" parent="PlaneBody"]
-transform = Transform3D(0.999994, 0.00349065, 1.23919e-11, -0.00335375, 0.960773, 0.277315, 0.000968009, -0.277313, 0.960779, -1.38633, 3.04509, 9.6401)
+transform = Transform3D(0.999994, 0.00349065, 1.23919e-11, -0.00335375, 0.960773, 0.277315, 0.000968009, -0.277313, 0.960779, -1.27361, 0.786444, 6.66882)
 
 [node name="Control" type="Control" parent="PlaneBody/PlayerCam"]
 layout_mode = 3
@@ -68,13 +67,12 @@ fill_mode = 3
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="PlaneMesh" type="MeshInstance3D" parent="PlaneBody"]
-transform = Transform3D(3.10815, 0, 0, 0, 3.10815, 0, 0, 0, 3.10815, -1.39708, -0.358034, 1.93578)
-mesh = SubResource("BoxMesh_0gws7")
-
 [node name="PlaneCollision" type="CollisionShape3D" parent="PlaneBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31909, -0.357559, 1.92302)
 shape = SubResource("BoxShape3D_oivcw")
+
+[node name="Plane" parent="PlaneBody" instance=ExtResource("3_ghplv")]
+transform = Transform3D(1.55032, 0, -4.26326e-14, 0, 1.55032, 0, 4.26326e-14, 0, 1.55032, 0.456566, -0.434925, 2.95519)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
