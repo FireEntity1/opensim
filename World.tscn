@@ -1,11 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddmv6cvhri7ao"]
+[gd_scene load_steps=10 format=3 uid="uid://ddmv6cvhri7ao"]
 
 [ext_resource type="PackedScene" uid="uid://bcwbokrsudnlx" path="res://World.glb" id="1_d0cua"]
-[ext_resource type="Script" path="res://PlaneController.gd" id="2_cidht"]
-[ext_resource type="Script" path="res://CharacterBody3D.gd" id="3_w6m62"]
+[ext_resource type="Script" path="res://plane.gd" id="2_3qumj"]
+[ext_resource type="Script" path="res://control.gd" id="3_geqqh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_plhss"]
+sky_top_color = Color(0.786034, 0.457073, 0.344528, 1)
+sky_horizon_color = Color(0.775227, 0.348327, 0.311117, 1)
+sky_curve = 0.227358
+sky_energy_multiplier = 2.0
+ground_horizon_color = Color(1, 0.596078, 0.52549, 1)
+ground_energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_3fdgm"]
+sky_material = SubResource("ProceduralSkyMaterial_plhss")
 
 [sub_resource type="Environment" id="Environment_6cvhw"]
-background_energy_multiplier = 3.13
+background_mode = 2
+background_energy_multiplier = 0.85
+sky = SubResource("Sky_3fdgm")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_130f4"]
 size = Vector3(178.654, 1, 184.499)
@@ -31,10 +44,10 @@ shape = SubResource("BoxShape3D_130f4")
 
 [node name="PlaneBody" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.1778, 18.0027, -127.874)
-script = ExtResource("2_cidht")
+script = ExtResource("2_3qumj")
 
 [node name="PlayerCam" type="Camera3D" parent="PlaneBody"]
-transform = Transform3D(-0.0766168, -0.276178, 0.958048, -0.00340774, 0.960939, 0.276739, -0.997055, 0.0179381, -0.0745652, 10.2666, 3.04509, 3.25541)
+transform = Transform3D(0.999994, 0.00349065, 1.23919e-11, -0.00335375, 0.960773, 0.277315, 0.000968009, -0.277313, 0.960779, -1.38633, 3.04509, 9.6401)
 
 [node name="Control" type="Control" parent="PlaneBody/PlayerCam"]
 layout_mode = 3
@@ -44,6 +57,7 @@ offset_bottom = 658.0
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="PlaneBody/PlayerCam/Control"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = 417.0
 offset_right = 23.0
@@ -62,13 +76,13 @@ mesh = SubResource("BoxMesh_0gws7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31909, -0.357559, 1.92302)
 shape = SubResource("BoxShape3D_oivcw")
 
-[node name="Sun" type="SpotLight3D" parent="PlaneBody"]
-transform = Transform3D(1, 0, 0, 0, -0.892058, 0.451921, 0, -0.451921, -0.892058, 0, 3.40481, -8.9879)
-light_energy = 10.79
-light_indirect_energy = 7.158
-light_size = 15.9
-spot_range = 33.11
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 560.0
+offset_top = 304.0
+offset_right = 600.0
+offset_bottom = 344.0
+script = ExtResource("3_geqqh")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="PlaneBody"]
-transform = Transform3D(3.10815, 0, 0, 0, 3.10815, 0, 0, 0, 3.10815, -1.39708, -0.358034, 1.93579)
-script = ExtResource("3_w6m62")
+[connection signal="analog_input" from="Control" to="PlaneBody" method="_on_control_analog_input"]
