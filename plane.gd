@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export var decceleration := 10.5
 @export var current_speed := 50.0
 var targetSpeed = 15
+var gearDown = true
 
 @export var yaw_speed := 45.0 #degrees per second
 @export var pitch_speed := 15.0
@@ -32,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	elif current_speed >= targetSpeed:
 		current_speed -= 0.2
 	$Rotation/PlayerCam/Control/ProgressBar.value = targetSpeed
-	
+	gear()
 	var input = Input.get_vector("left","right","down","up")
 	var roll = Input.get_axis("roll_left","roll_right")
 	if input.y > 0 and current_speed < MAX_SPEED:
@@ -43,17 +44,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	var turn_dir = Vector3(-turn_input.y,-turn_input.x,-roll)
 	apply_rotation(turn_dir,delta)
+	if current_speed < 15:
+		self.position.y = self.position.y
 	self.rotation.z = clamp(self.rotation.z, -30, 30)
 	turn_input = Vector2()
 	camera()
-	# spin_propellor(delta)
 
 
 func apply_rotation(vector,delta):
 	rotate(basis.z,vector.z * roll_speed * delta)
 	rotate(basis.x,vector.x * pitch_speed * delta)
 	rotate(basis.y,vector.y * yaw_speed * delta)
-	#lean mesh
 	if vector.y < 0:
 		plane_mesh.rotation.z = lerp_angle(plane_mesh.rotation.z, deg_to_rad(-45)*-vector.y,delta/2)
 	elif vector.y > 0:
@@ -76,6 +77,16 @@ func camera():
 		$Rotation.rotation.x -= 0.06
 	if Input.is_action_pressed("ui_down"):
 		$Rotation.rotation.x += 0.06
+
+func gear():
+	if gearDown == true:
+		$Plane/gear.show()
+	elif gearDown == false:
+		$Plane/gear.hide()
+	if Input.is_action_just_pressed("gear") and gearDown == true:
+		gearDown = false
+	elif Input.is_action_just_pressed("gear") and gearDown == false:
+		gearDown = true
 
 func _on_control_analog_input(analog):
 	turn_input = analog
