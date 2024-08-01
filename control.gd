@@ -7,13 +7,13 @@ signal analog_input(analog:Vector2)
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
-	Input.warp_mouse(position)
+	# Input.warp_mouse(position)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		return
 		
@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	else:
 		mouse_pos = local_mouse.normalized() * RADIUS
 		
-	Input.warp_mouse(position+mouse_pos)
+	# Input.warp_mouse(position+mouse_pos)
 	
 	var analog = Vector2(mouse_pos.x/RADIUS,mouse_pos.y/RADIUS)
 	

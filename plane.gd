@@ -4,8 +4,8 @@ extends CharacterBody3D
 @export var MIN_SPEED := 0
 @export var acceleration := 15.5
 @export var decceleration := 10.5
-@export var current_speed := 50.0
-var targetSpeed = 15
+@export var current_speed := 1.0
+var targetSpeed = 1
 var gearDown = true
 
 @export var yaw_speed := 45.0 #degrees per second
@@ -27,13 +27,14 @@ func _physics_process(delta: float) -> void:
 		targetSpeed -= 0.3
 	elif Input.is_action_pressed("ThrottleUp"):
 		targetSpeed += 0.3
-		
+	targetSpeed = clamp(targetSpeed,0,50)
 	if current_speed <= targetSpeed:
 		current_speed += 0.2
 	elif current_speed >= targetSpeed:
 		current_speed -= 0.2
 	$Rotation/PlayerCam/Control/ProgressBar.value = targetSpeed
 	gear()
+	$Rotation/PlayerCam/Control/speed.text = str(current_speed)
 	var input = Input.get_vector("left","right","down","up")
 	var roll = Input.get_axis("roll_left","roll_right")
 	if input.y > 0 and current_speed < MAX_SPEED:
@@ -45,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	var turn_dir = Vector3(-turn_input.y,-turn_input.x,-roll)
 	apply_rotation(turn_dir,delta)
 	if current_speed < 15:
-		self.position.y = self.position.y
+		self.position.y -= 0.05
 	self.rotation.z = clamp(self.rotation.z, -30, 30)
 	turn_input = Vector2()
 	camera()
