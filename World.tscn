@@ -120,7 +120,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.07885, 0.310317, 1.19209e-07, 
 [node name="WorldCollision" type="StaticBody3D" parent="World"]
 
 [node name="WorldCollision" type="CollisionShape3D" parent="World/WorldCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0324, -4.94521, -16.8702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0324, -8.12951, -16.8702)
 shape = SubResource("BoxShape3D_130f4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/WorldCollision"]
