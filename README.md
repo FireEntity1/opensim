@@ -1,10 +1,11 @@
 # OpenSim
 
-An open-source basic flight simulator meant to run on low-end systems! Currently in heavy development.
+An open-source basic flight simulator meant to run on low-end systems!
+
 
 Features: (As of now)
   - Aircraft control
   - Camera control
-  - A small field
-  - Throttle
+  - A small world
+  - Throttle control
   - More coming soon!
