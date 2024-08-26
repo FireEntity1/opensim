@@ -9,3 +9,6 @@ Features: (As of now)
   - A small world
   - Throttle control
   - More coming soon!
+
+![image](https://github.com/user-attachments/assets/7846721b-0d48-4a37-bcab-9f5feace2f28)
+
